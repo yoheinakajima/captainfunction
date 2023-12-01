@@ -14,21 +14,28 @@ def load_modules_from_dir(directory: str) -> Dict[str, ModuleType]:
     Dynamically loads Python modules from a specified directory.
 
     Args:
-    directory (str): The directory to load modules from.
+    directory (str): The directory to load modules from, relative to this file.
 
     Returns:
     Dict[str, ModuleType]: A dictionary of module names to module objects.
     """
     modules = {}
-    for filename in os.listdir(directory):
+    # Get the directory of the current file (__file__ is the path to dynamic_loader.py)
+    current_dir = os.path.dirname(__file__)
+    full_directory_path = os.path.join(current_dir, directory)
+
+    for filename in os.listdir(full_directory_path):
         if filename.endswith('.py') and not filename.startswith('__'):
             module_name = filename[:-3]
             try:
-                module = importlib.import_module(f"{directory}.{module_name}")
+                # Import the module from the full path
+                module_path = f"{directory}.{module_name}".replace('/', '.')
+                module = importlib.import_module(module_path)
                 modules[module_name] = module
                 logging.info(f"Successfully loaded module: {module_name}")
             except Exception as e:
                 logging.error(f"Error loading module {module_name}: {e}")
+
     return modules
 
 class FunctionRegistry:
