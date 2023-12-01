@@ -77,21 +77,21 @@ def load_functions(*function_names: str) -> Dict[str, Callable]:
     Loads specified functions from the 'functions' directory.
 
     Args:
-    *function_names (str): Names of the functions to load.
+    *function_names (str): Names of the modules to load.
 
     Returns:
-    Dict[str, Callable]: A dictionary of function names to function callables.
+    Dict[str, Callable]: A dictionary of module names to their 'handle_response' function callables.
     """
     function_registry = FunctionRegistry()
     loaded_modules = load_modules_from_dir('functions')
 
     for function_name in function_names:
         for module_name, module in loaded_modules.items():
-            if hasattr(module, function_name):
-                function_registry.register_function(function_name, getattr(module, function_name))
+            if module_name == function_name and hasattr(module, 'handle_response'):
+                function_registry.register_function(function_name, module.handle_response)
                 break
         else:
-            logging.warning(f"Function '{function_name}' not found in any module.")
+            logging.warning(f"Function 'handle_response' not found in the module '{function_name}'.")
 
     return {name: function_registry.get_function(name) for name in function_names}
 
