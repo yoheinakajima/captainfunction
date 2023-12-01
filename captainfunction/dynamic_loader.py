@@ -20,6 +20,10 @@ def load_modules_from_dir(directory: str) -> Dict[str, ModuleType]:
     Dict[str, ModuleType]: A dictionary of module names to module objects.
     """
     modules = {}
+    # Get the directory of the current file (__file__ is the path to dynamic_loader.py)
+    current_dir = os.path.dirname(__file__)
+    full_directory_path = os.path.join(current_dir, directory)
+
     # Construct the full package path for the functions directory
     package_path = f'captainfunction.{directory}'.replace('/', '.')
 
@@ -36,6 +40,7 @@ def load_modules_from_dir(directory: str) -> Dict[str, ModuleType]:
                 logging.error(f"Error loading module {module_name}: {e}")
 
     return modules
+
 
 class FunctionRegistry:
     """
