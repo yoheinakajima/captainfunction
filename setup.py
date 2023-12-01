@@ -9,6 +9,10 @@ setup(
     install_requires=[
         # Add your dependencies here, e.g., 'requests', 'numpy', etc.
     ],
+    package_data={
+        'captainfunction': ['functions/*.py'],
+    },
+    include_package_data=True,
     description='A Python package to dynamically load functions for OpenAI Assistant',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
