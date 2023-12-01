@@ -20,17 +20,16 @@ def load_modules_from_dir(directory: str) -> Dict[str, ModuleType]:
     Dict[str, ModuleType]: A dictionary of module names to module objects.
     """
     modules = {}
-    # Get the directory of the current file (__file__ is the path to dynamic_loader.py)
-    current_dir = os.path.dirname(__file__)
-    full_directory_path = os.path.join(current_dir, directory)
+    # Construct the full package path for the functions directory
+    package_path = f'captainfunction.{directory}'.replace('/', '.')
 
     for filename in os.listdir(full_directory_path):
         if filename.endswith('.py') and not filename.startswith('__'):
             module_name = filename[:-3]
             try:
-                # Import the module from the full path
-                module_path = f"{directory}.{module_name}".replace('/', '.')
-                module = importlib.import_module(module_path)
+                # Use the full package path for importing
+                full_module_path = f"{package_path}.{module_name}"
+                module = importlib.import_module(full_module_path)
                 modules[module_name] = module
                 logging.info(f"Successfully loaded module: {module_name}")
             except Exception as e:
