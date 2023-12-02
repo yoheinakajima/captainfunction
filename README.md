@@ -38,11 +38,19 @@ def get_function_schema():
         "description": "What your function does.",
         "parameters": {
             "type": "object",
-            "properties": {}
+            "properties": {
+                "argument1": {
+                    "type": "string",
+                    "description": "The first argument."
+                },
+                ...
+            }
         }
     }
 
 def handle_response(arguments):
+    arguments = json.loads(arguments)
+    argument1 = arguments["argument1"]
     # Your function logic here
     return "Function response"
 ```
