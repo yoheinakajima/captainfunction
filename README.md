@@ -14,17 +14,12 @@ I'm releasing this with two basic functions to start, a web search using Metapho
 
 ### Installation
 
-1. **Clone the Repository:**
+1. **Install CaptainFunction:**
    ```
-   git clone https://github.com/yoheinakajima/captainfunction.git
-   cd captainfunction
+   pip install git+https://github.com/yoheinakajima/captainfunction.git
    ```
 
-2. **Install Required Packages:**
-   ```
-   pip install -r requirements.txt
-   ```
-*Note, you might need to separately install required libraries from each function you load.
+*Note, you currently need to separately install required libraries from each function you load.
 
 ### Contributing Functions
 
