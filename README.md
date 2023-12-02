@@ -68,7 +68,7 @@ Create the function schemas and initialize the OpenAI assistant (this examples i
 function_schemas = [{"type": "function", "function": func['schema']} for func in loaded_funcs.values()]
 
 assistant = openai_client.beta.assistants.create(
-    instructions="Respond to user queries. Always explain which function call you used if you used one.",
+    instructions="Respond to user queries.",
     model="gpt-3.5-turbo",
     tools=function_schemas
 )
