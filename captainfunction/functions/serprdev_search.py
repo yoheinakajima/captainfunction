@@ -31,7 +31,7 @@ def handle_response(arguments):
     })
 
     headers = {
-        'X-API-KEY': os.getenv('SERPDEV_API_KEY'),
+        'X-API-KEY': os.getenv('SERPRDEV_API_KEY'),
         'Content-Type': 'application/json'
     }
 
